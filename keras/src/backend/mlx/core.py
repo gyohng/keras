@@ -55,7 +55,9 @@ class Variable(KerasVariable):
         return value
 
 
-def convert_to_tensor(x, dtype=None, sparse=None):
+def convert_to_tensor(x, dtype=None, sparse=None, ragged=False):
+    if ragged:
+        raise ValueError("`ragged=True` is not supported with mlx backend")
     if sparse:
         raise ValueError("`sparse=True` is not supported with mlx backend")
     mlx_dtype = to_mlx_dtype(dtype) if dtype is not None else None
@@ -308,3 +310,7 @@ def stop_gradient(variable):
 def unstack(x, num=None, axis=0):
     y = x.split(num or x.shape[axis], axis=axis)
     return [yi.squeeze(axis) for yi in y]
+
+def random_seed_dtype():
+    # jax random seed uses uint32.
+    return "uint32"
