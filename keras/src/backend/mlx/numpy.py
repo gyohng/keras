@@ -166,9 +166,17 @@ def arctanh(x):
 
 
 def argmax(x, axis=None, keepdims=False):
+    if x.ndim == 0:
+        x = convert_to_tensor(x)
+        return mx.argmax(x, axis=axis, keepdims=keepdims)
+        
     x = convert_to_tensor(x)
-    return mx.argmax(x, axis=axis, keepdims=keepdims)
-
+    x_float = x.astype(mx.float32)
+    is_negative_zero = (x_float == 0.0) & mx.signbit(x_float)
+    x_adjusted = mx.where(
+        is_negative_zero, -mx.finfo(x_float.dtype).tiny, x_float
+    )
+    return mx.argmax(x_adjusted, axis=axis, keepdims=keepdims)
 
 def argmin(x, axis=None, keepdims=False):
     x = convert_to_tensor(x)
