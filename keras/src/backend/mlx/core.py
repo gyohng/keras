@@ -8,6 +8,8 @@ from keras.src.backend.common.keras_tensor import KerasTensor
 from keras.src.backend.common.stateless_scope import StatelessScope
 
 SUPPORTS_SPARSE_TENSORS = False
+SUPPORTS_RAGGED_TENSORS = False
+IS_THREAD_SAFE = True
 
 MLX_DTYPES = {
     "float16": mx.float16,

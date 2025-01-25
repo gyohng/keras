@@ -9,6 +9,8 @@ from keras.src.backend.mlx import nn
 from keras.src.backend.mlx import numpy
 from keras.src.backend.mlx import random
 from keras.src.backend.mlx.core import SUPPORTS_SPARSE_TENSORS
+from keras.src.backend.mlx.core import SUPPORTS_RAGGED_TENSORS
+from keras.src.backend.mlx.core import IS_THREAD_SAFE
 from keras.src.backend.mlx.core import Variable
 from keras.src.backend.mlx.core import cast
 from keras.src.backend.mlx.core import compute_output_spec
